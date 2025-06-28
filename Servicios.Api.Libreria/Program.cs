@@ -1,5 +1,7 @@
 
 using Servicios.Api.Libreria.Core;
+using Servicios.Api.Libreria.Core.ContextMongoDB;
+using Servicios.Api.Libreria.Repository;
 
 namespace Servicios.Api.Libreria
 {
@@ -13,13 +15,16 @@ namespace Servicios.Api.Libreria
             builder.Services.Configure<MongoSettings>(
                 options =>
                 {
-                    options.ConnectionString = builder.Configuration.GetSection("MongoDb:ConectionString").Value;
+                    options.ConnectionString = builder.Configuration.GetSection("MongoDb:ConnectionString").Value;
 
                     options.Database = builder.Configuration.GetSection("MongoDb:Database").Value;
                 }
             );
 
             builder.Services.AddSingleton<MongoSettings>();
+            builder.Services.AddTransient<IAutorContext, AutorContext>();
+            builder.Services.AddTransient<IAutorRepository, AutorRepository>();
+
 
             // Add services to the container.
             builder.Services.AddControllers();
