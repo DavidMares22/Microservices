@@ -24,6 +24,7 @@ namespace Servicios.Api.Libreria
             builder.Services.AddSingleton<MongoSettings>();
             builder.Services.AddTransient<IAutorContext, AutorContext>();
             builder.Services.AddTransient<IAutorRepository, AutorRepository>();
+            builder.Services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
 
 
             // Add services to the container.
