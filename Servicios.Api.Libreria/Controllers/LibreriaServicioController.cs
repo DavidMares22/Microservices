@@ -21,7 +21,7 @@ namespace Servicios.Api.Libreria.Controllers
         }
 
         [HttpGet("autoresGenerico")]
-        public async Task<ActionResult<IEnumerable<Autor>>> GetAutoresGenerico()
+        public async Task<ActionResult<IEnumerable<AutorEntity>>> GetAutoresGenerico()
         {
 
             var autores = await _autorMongoRepository.GetAll();

@@ -40,5 +40,55 @@ namespace Servicios.Api.Libreria.Repository
             return await _collection.Find(_ => true)
                                      .ToListAsync();
         }
+
+        public async Task<T> GetById(string id)
+        {
+            var filter = Builders<T>.Filter.Eq(doc => doc.Id, id);
+            return await _collection.Find(filter)
+                              .FirstOrDefaultAsync();
+        }
+
+        public async Task<T> InsertDocument(T document)
+        {
+            if (document == null)
+            {
+                throw new ArgumentNullException(nameof(document), "Document cannot be null");
+            }
+
+            await _collection.InsertOneAsync(document);
+            return document;
+        }
+
+        public async Task<T> UpdateDocument(T document)
+        {
+            if (document == null)
+            {
+                throw new ArgumentNullException(nameof(document), "Document cannot be null");
+            }
+
+            var filter = Builders<T>.Filter.Eq(doc => doc.Id, document.Id);
+            var result = await _collection.ReplaceOneAsync(filter, document);
+
+            if (result.MatchedCount == 0)
+            {
+                throw new KeyNotFoundException($"Document with ID {document.Id} not found.");
+            }
+
+            return document;
+           
+        }
+
+        public Task<bool> DeleteDocument(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentException("ID cannot be null or empty", nameof(id));
+            }
+
+            var filter = Builders<T>.Filter.Eq(doc => doc.Id, id);
+            var result = _collection.DeleteOne(filter);
+
+            return Task.FromResult(result.DeletedCount > 0);
+        }
     }
 }
