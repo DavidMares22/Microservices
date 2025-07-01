@@ -11,7 +11,7 @@ namespace Servicios.Api.Libreria
         {
             var builder = WebApplication.CreateBuilder(args);
 
-      
+
             builder.Services.Configure<MongoSettings>(
                 options =>
                 {
@@ -25,6 +25,14 @@ namespace Servicios.Api.Libreria
             builder.Services.AddTransient<IAutorContext, AutorContext>();
             builder.Services.AddTransient<IAutorRepository, AutorRepository>();
             builder.Services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsRule", rule =>
+                    {
+                        rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
+                    });
+            });
 
 
             // Add services to the container.
@@ -41,6 +49,8 @@ namespace Servicios.Api.Libreria
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("CorsRule");
 
             app.UseAuthorization();
 
