@@ -88,7 +88,7 @@ namespace Servicios.Api.Libreria.Controllers
         [HttpPost("pagination")]
         public async Task<ActionResult<PaginationEntity<AutorEntity>>> PostPagination(PaginationEntity<AutorEntity> pagination)
         {
-            var resultado = await _autorGenericoRepository.PaginationBy(filter => filter.Nombre == pagination.Filter, pagination);
+            var resultado = await _autorGenericoRepository.PaginationByFilter(pagination);
             
             return Ok(resultado);
             
