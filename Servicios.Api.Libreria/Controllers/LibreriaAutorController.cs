@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Servicios.api.Libreria.Core.Entities;
 using Servicios.Api.Libreria.Core.Entities;
 using Servicios.Api.Libreria.Repository;
 
@@ -83,8 +84,15 @@ namespace Servicios.Api.Libreria.Controllers
 
             return NoContent();
         }
-        
-        
+
+        [HttpPost("pagination")]
+        public async Task<ActionResult<PaginationEntity<AutorEntity>>> PostPagination(PaginationEntity<AutorEntity> pagination)
+        {
+            var resultado = await _autorGenericoRepository.PaginationBy(filter => filter.Nombre == pagination.Filter, pagination);
+            
+            return Ok(resultado);
+            
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Servicios.Api.Libreria.Core.Entities
 {
-    [BsonCollection("Autores")]
+    [BsonCollection("Autor")]
+
     public class AutorEntity : Document
     {
         public string Nombre { get; set; }
