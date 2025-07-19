@@ -1,3 +1,11 @@
+<h1>Mis libros Favoritos</h1>
+
+<form (ngSubmit)="guardarLibro(f)" #f="ngForm">
+    <input type="text" placeholder="Ingrese el nombre del libro" 
+    ngModel name="libro" required>
+    <button type="submit">Guardar</button>
+</form>
+
 <app-libro [tituloLibro]="libro" *ngFor="let libro of libros" 
 (libroClicked)="eliminarLibro(libro)">
     
