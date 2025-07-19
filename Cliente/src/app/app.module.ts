@@ -13,6 +13,8 @@ import { AutoresComponent } from './autores/autores.component';
 import { InicioComponent } from './inicio.component';
 import { BarraComponent } from './navegacion/barra/barra.component';
 import { MenuListaComponent } from './navegacion/menu-lista/menu-lista.component';
+import { LibrosComponent } from './libros/libros.component';
+import { LibroComponent } from './libro/libro.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { MenuListaComponent } from './navegacion/menu-lista/menu-lista.component
     AutoresComponent,
     BarraComponent,
     MenuListaComponent,
-    InicioComponent
+    InicioComponent,
+    LibrosComponent,
+    LibroComponent
   ],
   imports: [
     BrowserModule,
