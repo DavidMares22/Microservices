@@ -1,4 +1,4 @@
-# Microservices Workspace
+# Microservices
 
 This repository contains a microservices solution with an Angular frontend (`Cliente`) and a .NET backend (`Servicios.Api.Libreria`).
 
