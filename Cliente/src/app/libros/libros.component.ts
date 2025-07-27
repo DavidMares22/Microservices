@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { LibrosService } from '../services/libros.services';
 
 @Component({
   selector: 'app-libros',
@@ -7,21 +8,23 @@ import { NgForm } from '@angular/forms';
   styleUrl: './libros.component.css'
 })
 export class LibrosComponent {
-  libros: string[] = ['Libro 1', 'Libro 2', 'Libro 3'];
+  
 
-  guardarLibro(form: NgForm) {
+  constructor(private bookService : LibrosService) {}
+
+  libros: string[] = this.bookService.getLibros();
+
+guardarLibro(form: NgForm) {
     if (form.valid) {
-      this.libros.push(form.value.libro); // Push only the string
-      console.log('Libro guardado:', form.value);
+      this.bookService.guardarLibro(form.value['nombre del libro']);
       form.reset();
-    } else {
-      console.log('Formulario inválido');
+      this.libros = this.bookService.getLibros();
     }
   }
 
   eliminarLibro(libro: string) {
-    this.libros = this.libros.filter(l => l !== libro);
-    console.log('Libro eliminado:', libro);
+    this.bookService.removeLibro(libro);
+    this.libros = this.bookService.getLibros();
+    console.log('Lista actualizada:', this.libros);
   }
-
 }
