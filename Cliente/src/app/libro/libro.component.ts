@@ -11,8 +11,8 @@ export class LibroComponent {
 @Output() libroClicked: EventEmitter<void> = new EventEmitter<void>();
 
 onClicked() {
-  this.libroClicked.emit();
   console.log('Libro clicked:', this.tituloLibro);
+  this.libroClicked.emit();
 }
 
 }
