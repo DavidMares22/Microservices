@@ -41,8 +41,5 @@ export class LibrosComponent {
     }
   }
 
-  eliminarLibro(libro: string) {
-    this.bookService.removeLibro(libro);
-    this.libros = this.bookService.getLibros();
-  }
+  
 }

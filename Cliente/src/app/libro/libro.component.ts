@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { LibrosService } from '../services/libros.services';
 
 @Component({
   selector: 'app-libro',
@@ -8,11 +9,14 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 export class LibroComponent {
 
 @Input() tituloLibro: string = '';
-@Output() libroClicked: EventEmitter<void> = new EventEmitter<void>();
+
+ 
+constructor(private service: LibrosService) { }
+  
+
 
 onClicked() {
-  console.log('Libro clicked:', this.tituloLibro);
-  this.libroClicked.emit();
+  this.service.removeLibro(this.tituloLibro);
 }
 
 }

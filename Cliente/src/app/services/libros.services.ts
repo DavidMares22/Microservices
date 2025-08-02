@@ -13,12 +13,13 @@ export class LibrosService {
   }
 
 guardarLibro(libro: string) {
-      this.libros.push(libro);
-      this.librosSubject.next();
+    this.libros.push(libro);
+    this.librosSubject.next();
   }
 
   removeLibro(libro: string): void {
     this.libros = this.libros.filter(l => l !== libro);
     console.log('Libro eliminado:', libro);
+    this.librosSubject.next();
   }
 }
