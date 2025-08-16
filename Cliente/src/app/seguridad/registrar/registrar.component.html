@@ -1,15 +1,43 @@
 <section>
-    <form fxLayout="column" fxLayoutAlign="center center" >
-        
+    <form fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="registrarUsuario(f)">
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" ngModel name="name" required #nameInput="ngModel"
+            minlength="3" maxlength="20">
+            <mat-error *ngIf="nameInput?.errors?.['required']">El nombre es obligatorio.</mat-error>
+            <mat-error *ngIf="nameInput?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</mat-error>
+            <mat-error *ngIf="nameInput?.errors?.['maxlength']">El nombre no puede exceder los 50 caracteres.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Apellidos</mat-label>
+            <input matInput type="text" ngModel name="apellidos" required #apellidosInput="ngModel"
+            minlength="3" maxlength="50">
+            <mat-error *ngIf="apellidosInput?.errors?.['required']">Los apellidos son obligatorios.</mat-error>
+            <mat-error *ngIf="apellidosInput?.errors?.['minlength']">Los apellidos deben tener al menos 3 caracteres.</mat-error>
+            <mat-error *ngIf="apellidosInput?.errors?.['maxlength']">Los apellidos no pueden exceder los 50 caracteres.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Usuario</mat-label>
+            <input matInput type="text" ngModel name="username" required #usernameInput="ngModel"
+            minlength="3" maxlength="20">
+            <mat-error *ngIf="usernameInput?.errors?.['required']">El usuario es obligatorio.</mat-error>
+            <mat-error *ngIf="usernameInput?.errors?.['minlength']">El usuario debe tener al menos 3 caracteres.</mat-error>
+            <mat-error *ngIf="usernameInput?.errors?.['maxlength']">El usuario no puede exceder los 20 caracteres.</mat-error>
+        </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Correo electrónico</mat-label>
-            <input matInput type="email" ngModel name="email" required>
+            <input matInput type="email" ngModel name="email" required email #emailInput="ngModel">
+            <mat-error *ngIf="emailInput?.errors?.['required']">El correo electrónico es obligatorio.</mat-error>
+            <mat-error *ngIf="emailInput?.errors?.['email']">El correo electrónico no es válido.</mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" hintLabel="El password debe tener al menos 6 caracteres.">
             <mat-label>Contraseña</mat-label>
-            <input matInput type="password" ngModel name="password" required>
+            <input matInput type="password" ngModel name="password" required
+            minlength="6" #passwordInput="ngModel">
+            <mat-error *ngIf="passwordInput?.errors?.['required']">La contraseña es obligatoria.</mat-error>
+            <mat-error *ngIf="passwordInput?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</mat-error>
         </mat-form-field>
 
-        <button type="submit" mat-raised-button color="primary">Guardar</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!f.valid">Guardar</button>
     </form>
 </section>
