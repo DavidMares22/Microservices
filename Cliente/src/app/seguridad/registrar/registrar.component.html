@@ -1,1 +1,15 @@
-<p>registrar works!</p>
+<section>
+    <form fxLayout="column" fxLayoutAlign="center center" >
+        
+        <mat-form-field appearance="fill">
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput type="email" ngModel name="email" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" ngModel name="password" required>
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button color="primary">Guardar</button>
+    </form>
+</section>
