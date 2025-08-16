@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { LibrosService } from '../services/libros.services';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-libros',
@@ -7,21 +9,37 @@ import { NgForm } from '@angular/forms';
   styleUrl: './libros.component.css'
 })
 export class LibrosComponent {
-  libros: string[] = ['Libro 1', 'Libro 2', 'Libro 3'];
 
-  guardarLibro(form: NgForm) {
-    if (form.valid) {
-      this.libros.push(form.value.libro); // Push only the string
-      console.log('Libro guardado:', form.value);
-      form.reset();
-    } else {
-      console.log('Formulario inválido');
+
+  constructor(private bookService: LibrosService) { }
+
+  libros: string[] = [];
+  private libroSubscription!: Subscription;
+
+  ngOnInit() {
+
+    this.libros = this.bookService.getLibros();
+    this.libroSubscription  = this.bookService.librosSubject.subscribe(() => {
+      this.libros = this.bookService.getLibros();
+      console.log('Lista actualizada:', this.libros);
+    });
+  }
+  ngOnDestroy() {
+    if (this.libroSubscription)
+    {
+      console.log('Desuscribiendo de librosSubject');
+      this.libroSubscription.unsubscribe();
     }
   }
 
-  eliminarLibro(libro: string) {
-    this.libros = this.libros.filter(l => l !== libro);
-    console.log('Libro eliminado:', libro);
+  guardarLibro(form: NgForm) {
+    if (form.valid) {
+      this.bookService.guardarLibro(form.value['nombre del libro']);
+      form.reset();
+      this.libros = this.bookService.getLibros();
+
+    }
   }
 
+  
 }

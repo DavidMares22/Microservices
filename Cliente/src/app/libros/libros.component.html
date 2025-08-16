@@ -2,11 +2,10 @@
 
 <form (ngSubmit)="guardarLibro(f)" #f="ngForm">
     <input type="text" placeholder="Ingrese el nombre del libro" 
-    ngModel name="libro" required>
+    ngModel name="nombre del libro" required>
     <button type="submit">Guardar</button>
 </form>
 
-<app-libro [tituloLibro]="libro" *ngFor="let libro of libros" 
-(libroClicked)="eliminarLibro(libro)">
-    
- </app-libro>
+<app-libro [tituloLibro]="libro" 
+*ngFor="let libro of libros">
+</app-libro>
